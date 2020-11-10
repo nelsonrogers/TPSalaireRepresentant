@@ -51,11 +51,11 @@ public class TestRepresentant {
 	public void testCAParDefaut() {
 		float POURCENTAGE= 0.1f; // 10% de pourcentage sur CA
 		
-		// On n'enregistre aucun CA
-		//r.enregistrerCA(0, 10000f);
+		
+		r.enregistrerCA(0, 10000f);
 		
 		// On calcule son salaire pour le mois 0 avec 10% de part sur CA
-		float salaire = r.salaireMensuel(0, POURCENTAGE);
+		float salaire = r.salaireMensuel(0, POURCENTAGE) - r.getSalaireFixe();
 		
 		// A quel résultat on s'attend ?
 		// Le CA du mois doit avoir été initialisé à 0
@@ -81,7 +81,5 @@ public class TestRepresentant {
 			// Si on arrive ici, c'est normal, c'est le comportement attendu
 		}
 
-	}
-	
-	
+        }
 }
