@@ -85,7 +85,8 @@ public class Representant {
                 if (pourcentage < 0) {
 			throw new IllegalArgumentException("Le pourcentage doit être positif ou null");
 		}
-		return salaireFixe + secteur.getIndemniteRepas() + pourcentage * CA.getOrDefault(mois, 0f);
+                caMensuel = CA.getOrDefault(mois, 0f);
+		return salaireFixe + secteur.getIndemniteRepas() + pourcentage * caMensuel;
 	}
 
 	@Override
