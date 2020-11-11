@@ -117,7 +117,7 @@ public class TestRepresentant {
         
         @Test
         public void testMoisNegatifImpossibleV2() {
-                float CA = 50000f;
+            
                 float POURCENTAGE = 0.1f;
                 
                 try { 
@@ -148,7 +148,6 @@ public class TestRepresentant {
         @Test
         public void testPourcentageNegatifImpossible() {
                 
-                float CA = 50000f;
                 float POURCENTAGE = -0.1f;
                 
                 try { 
