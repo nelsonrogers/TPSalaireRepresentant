@@ -11,6 +11,8 @@ public class Representant {
 	private float salaireFixe;
         private ZoneGeographique secteur;
         private float caMensuel;
+        private float indemniteRepas;
+        private float salaireMensuel;
         HashMap <Integer, Float> CA = new HashMap<>();
 
 	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur) {
@@ -86,7 +88,9 @@ public class Representant {
 			throw new IllegalArgumentException("Le pourcentage doit être positif ou null");
 		}
                 caMensuel = CA.getOrDefault(mois, 0f);
-		return salaireFixe + secteur.getIndemniteRepas() + pourcentage * caMensuel;
+                indemniteRepas = secteur.getIndemniteRepas();
+                salaireMensuel = salaireFixe + indemniteRepas + pourcentage * caMensuel;
+		return salaireMensuel;
 	}
 
 	@Override
