@@ -4,14 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class TestRepresentant {
 	// Quelques constantes
 	private static final float FIXE_BASTIDE = 1000f;
 	private static final float INDEMNITE_OCCITANIE = 200f;
+        private static final float INDEMNITE_RA = 100f;
 	
 	private Representant r; // L'objet à tester
 	private ZoneGeographique occitanie;
+        private ZoneGeographique rhoneAlpes;
 	
 	@BeforeEach
 	public void setUp() {
@@ -82,4 +87,77 @@ public class TestRepresentant {
 		}
 
         }
+        
+        
+        @Test 
+        // Le représentant ne travaille que dans une région à la fois
+        public void setSecteurRemetAJourRegion() {
+            
+                rhoneAlpes = new ZoneGeographique(2, "Rhône-Alpes");
+                rhoneAlpes.setIndemniteRepas(INDEMNITE_RA);
+                r.setSecteur(rhoneAlpes);
+                
+                assertEquals(r.getSecteur(), rhoneAlpes, "La région n'a pas été mise à jour");
+        }
+        
+        @Test
+        public void testMoisNegatifImpossibleV1() {
+                
+                try { 
+                    r.enregistrerCA(-1, FIXE_BASTIDE);
+                    fail("Le mois ne peut pas être négatif");
+                    // On ne doit pas arriver ici
+                } 
+                catch (IllegalArgumentException e) {
+                    // On doit arriver ici
+            }
+        }
+        
+        @Test
+        public void testMoisNegatifImpossibleV2() {
+                float CA = 50000f;
+                float POURCENTAGE = 0.1f;
+                
+                try { 
+                    r.salaireMensuel(-1, POURCENTAGE);
+                    fail("Le mois ne peut pas être négatif");
+                    // On ne doit pas arriver ici
+                } 
+                catch (IllegalArgumentException e) {
+                    // On doit arriver ici
+            }
+        }
+        
+        
+        @Test
+        public void testMoisSupOnzeImpossible() {
+                try {
+                    r.enregistrerCA(12, FIXE_BASTIDE);
+                    fail("Le mois doit être inférieur à 12");
+                    // On ne doit pas arriver ici
+                }
+                catch (IllegalArgumentException e) {
+                    // Si on arrive ici c'est normal
+                }
+        }
+            
+        
+        @Test
+        public void testPourcentageNegatifImpossible() {
+                
+                float CA = 50000f;
+                float POURCENTAGE = -0.1f;
+                
+                try { 
+                    r.salaireMensuel(0, POURCENTAGE);
+                    fail("Le mois ne peut pas être négatif");
+                    // On ne doit pas arriver ici
+                } 
+                catch (IllegalArgumentException e) {
+                    // On doit arriver ici
+                }
+        }
+        
+        
+        
 }
