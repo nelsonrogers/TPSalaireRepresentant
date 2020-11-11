@@ -1,7 +1,6 @@
 package representation;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class Representant {
 
@@ -12,7 +11,7 @@ public class Representant {
 	private float salaireFixe;
         private ZoneGeographique secteur;
         private float caMensuel;
-        TreeMap <Integer, Float> CA = new TreeMap<>();
+        HashMap <Integer, Float> CA = new HashMap<>();
 
 	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur) {
 		this.numero = numero;
@@ -56,7 +55,7 @@ public class Representant {
 	public void setSecteur(ZoneGeographique secteur) {
                 this.secteur = secteur;
 	}
-
+        
 	/**
 	 * Enregistre le CA de ce représentant pour un mois donné. 
 	 * @param mois le numéro du mois (de 0 à 11)
@@ -86,7 +85,7 @@ public class Representant {
                 if (pourcentage < 0) {
 			throw new IllegalArgumentException("Le pourcentage doit être positif ou null");
 		}
-		return salaireFixe + secteur.getIndemniteRepas() + pourcentage * CA.get(mois);
+		return salaireFixe + secteur.getIndemniteRepas() + pourcentage * CA.getOrDefault(mois, 0f);
 	}
 
 	@Override

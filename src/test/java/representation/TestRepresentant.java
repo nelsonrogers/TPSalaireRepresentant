@@ -1,5 +1,6 @@
 package representation;
 
+import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ public class TestRepresentant {
 	private Representant r; // L'objet à tester
 	private ZoneGeographique occitanie;
         private ZoneGeographique rhoneAlpes;
+        private HashMap<Integer, Float> CA;
 	
 	@BeforeEach
 	public void setUp() {
@@ -54,17 +56,15 @@ public class TestRepresentant {
 
 	@Test
 	public void testCAParDefaut() {
-		float POURCENTAGE= 0.1f; // 10% de pourcentage sur CA
 		
-		
-		r.enregistrerCA(0, 10000f);
-		
+                float POURCENTAGE= 0.1f; // 10% de pourcentage sur CA
+
 		// On calcule son salaire pour le mois 0 avec 10% de part sur CA
-		float salaire = r.salaireMensuel(0, POURCENTAGE) - r.getSalaireFixe();
+		float salaire = r.salaireMensuel(0, POURCENTAGE);
 		
 		// A quel résultat on s'attend ?
 		// Le CA du mois doit avoir été initialisé à 0
-		
+
 		assertEquals(
 			FIXE_BASTIDE + INDEMNITE_OCCITANIE, 
 			salaire, 
@@ -92,11 +92,11 @@ public class TestRepresentant {
         @Test 
         // Le représentant ne travaille que dans une région à la fois
         public void setSecteurRemetAJourRegion() {
-            
+                // On donne un nouveau secteur au representant
                 rhoneAlpes = new ZoneGeographique(2, "Rhône-Alpes");
                 rhoneAlpes.setIndemniteRepas(INDEMNITE_RA);
                 r.setSecteur(rhoneAlpes);
-                
+                // On vérifie que le secteur a bien été mis à jour
                 assertEquals(r.getSecteur(), rhoneAlpes, "La région n'a pas été mise à jour");
         }
         
@@ -104,6 +104,8 @@ public class TestRepresentant {
         public void testMoisNegatifImpossibleV1() {
                 
                 try { 
+                    // On enregistre une CA pour un mois inexistant
+                    // On s'attend à une exception
                     r.enregistrerCA(-1, FIXE_BASTIDE);
                     fail("Le mois ne peut pas être négatif");
                     // On ne doit pas arriver ici
@@ -119,6 +121,7 @@ public class TestRepresentant {
                 float POURCENTAGE = 0.1f;
                 
                 try { 
+                    // On utilise un numéro de mois négatif, on s'attend à une exception
                     r.salaireMensuel(-1, POURCENTAGE);
                     fail("Le mois ne peut pas être négatif");
                     // On ne doit pas arriver ici
@@ -149,6 +152,7 @@ public class TestRepresentant {
                 float POURCENTAGE = -0.1f;
                 
                 try { 
+                    // Le pourcentage est négatif, on s'attend à une exception
                     r.salaireMensuel(0, POURCENTAGE);
                     fail("Le mois ne peut pas être négatif");
                     // On ne doit pas arriver ici
