@@ -236,9 +236,7 @@ public class TestRepresentant {
         @Test 
         public void testToString() {
                 Representant n = new Representant(2, "Rogers", "Nelson", occitanie);
-                assertEquals("Representant{" + "numero=" + n.getNumero() + ", nom=" + n.getNom() + ", prenom=" + n.getPrenom() + '}',
-                        n.toString()
-                );
+                assertEquals(n.toString(), "Representant{numero=2, nom=Rogers, prenom=Nelson}");
         }
         
 }
