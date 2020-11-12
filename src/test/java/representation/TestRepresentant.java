@@ -133,7 +133,7 @@ public class TestRepresentant {
         
         
         @Test
-        public void testMoisSupOnzeImpossible() {
+        public void testMoisSupOnzeImpossibleV1() {
                 try {
                     r.enregistrerCA(12, FIXE_BASTIDE);
                     fail("Le mois doit être inférieur à 12");
@@ -143,7 +143,24 @@ public class TestRepresentant {
                     // Si on arrive ici c'est normal
                 }
         }
+        
             
+        @Test
+        public void testMoisSupOnzeImpossibleV2() {
+            
+                float POURCENTAGE = 0.1f;
+                
+                try { 
+                    // On utilise un numéro de mois négatif, on s'attend à une exception
+                    r.salaireMensuel(12, POURCENTAGE);
+                    fail("Le mois ne peut pas être négatif");
+                    // On ne doit pas arriver ici
+                } 
+                catch (IllegalArgumentException e) {
+                    // On doit arriver ici
+            }
+        }
+        
         
         @Test
         public void testPourcentageNegatifImpossible() {
