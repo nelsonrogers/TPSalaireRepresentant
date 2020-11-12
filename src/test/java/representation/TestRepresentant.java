@@ -1,24 +1,20 @@
 package representation;
 
-import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestRepresentant {
 	// Quelques constantes
 	private static final float FIXE_BASTIDE = 1000f;
 	private static final float INDEMNITE_OCCITANIE = 200f;
-        private static final float INDEMNITE_RA = 100f;
 	
 	private Representant r; // L'objet à tester
 	private ZoneGeographique occitanie;
         private ZoneGeographique rhoneAlpes;
-        private HashMap<Integer, Float> CA;
 	
 	@BeforeEach
 	public void setUp() {
@@ -26,7 +22,7 @@ public class TestRepresentant {
 		occitanie = new ZoneGeographique(1, "Occitanie");
 		occitanie.setIndemniteRepas(INDEMNITE_OCCITANIE);
 
-		r = new Representant(36, "Bastide", "Rémi", occitanie);	
+		r = new Representant(36, "Bastide", "Rémi", occitanie, "8 Rue Fuzies Castres");	
 		r.setSalaireFixe(FIXE_BASTIDE);				
 	}
 	
@@ -94,7 +90,6 @@ public class TestRepresentant {
         public void setSecteurRemetAJourRegion() {
                 // On donne un nouveau secteur au representant
                 rhoneAlpes = new ZoneGeographique(2, "Rhône-Alpes");
-                rhoneAlpes.setIndemniteRepas(INDEMNITE_RA);
                 r.setSecteur(rhoneAlpes);
                 // On vérifie que le secteur a bien été mis à jour
                 assertEquals(r.getSecteur(), rhoneAlpes, "La région n'a pas été mise à jour");
@@ -178,6 +173,72 @@ public class TestRepresentant {
                 }
         }
         
+        @Test 
+        public void testGetNumero() {
+                assertEquals(r.getNumero(), 36, "Le getter Numero ne fonctionne pas");
+        }
         
+        
+        @Test
+        public void testGetNom() {
+                assertEquals(r.getNom(), "Bastide", "Le getteur Nom ne fonctionne pas");
+        }
+        
+        @Test
+        public void testGetPrenom() {
+                assertEquals(r.getPrenom(), "Rémi", "Le getteur Nom ne fonctionne pas");
+        }
+        
+        
+        @Test 
+        public void testSetAdresse() {
+                String adresse = "42 Rue Génissieu Castres";
+                r.setAdresse(adresse);
+                assertEquals(r.getAdresse(), "42 Rue Génissieu Castres", "Le setteur d'adresse ne fonctionne pas");
+        }
+        
+        @Test 
+        public void testGetAdresse() {
+                String adresse = "3 Rue Lamark";
+                r.setAdresse(adresse);
+                assertEquals(r.getAdresse(), "3 Rue Lamark", "Le getteur ne fonctionne pas");
+        }
+        
+        
+        @Test 
+        public void testSetSalaireFixe() {   
+                r.setSalaireFixe(FIXE_BASTIDE); // Déjà mis dans le @BeforEach, mais je remets pour la clareté
+                assertEquals(r.getSalaireFixe(), FIXE_BASTIDE, "Le setteur de salaire fixe ne fonctionne pas");
+                
+        }
+        
+        @Test 
+        public void testGetSalaireFixe() {
+                assertEquals(r.getSalaireFixe(), FIXE_BASTIDE);
+        }
+        
+        
+        @Test 
+        public void testGetSecteur() {
+                assertEquals(r.getSecteur(), occitanie);
+        }
+        
+        
+        @Test
+        public void testGetCA() {
+                r.enregistrerCA(0,10000f);
+                r.enregistrerCA(0,5000f);
+                
+                assertEquals(r.getCA(0), 5000f);
+        }
+        
+        
+        @Test 
+        public void testToString() {
+                Representant n = new Representant(2, "Rogers", "Nelson", occitanie, "42 Rue Génissieu");
+                assertEquals("Representant{" + "numero=" + n.getNumero() + ", nom=" + n.getNom() + ", prenom=" + n.getPrenom() + '}',
+                        n.toString()
+                );
+        }
         
 }

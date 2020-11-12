@@ -6,7 +6,7 @@ public class Main {
         ZoneGeographique occitanie = new ZoneGeographique(1, "Occitanie");
         occitanie.setIndemniteRepas(200.00f);
 
-        Representant r = new Representant(36, "Bastide", "Rémi", occitanie);
+        Representant r = new Representant(36, "Bastide", "Rémi", occitanie, "8 Rue Fuzies Castres");
 
         r.setSalaireFixe(1000f);
 

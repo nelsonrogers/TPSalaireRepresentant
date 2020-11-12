@@ -15,11 +15,12 @@ public class Representant {
         private float salaireMensuel;
         HashMap <Integer, Float> CA = new HashMap<>();
 
-	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur) {
+	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur, String adresse) {
 		this.numero = numero;
 		this.nom = nom;
 		this.prenom = prenom;
                 this.secteur = secteur;
+                this.adresse = adresse;
 	}
 
 	public int getNumero() {
@@ -57,6 +58,10 @@ public class Representant {
 	public void setSecteur(ZoneGeographique secteur) {
                 this.secteur = secteur;
 	}
+        
+        public float getCA(int mois) {
+                return CA.get(mois);
+        }
         
 	/**
 	 * Enregistre le CA de ce représentant pour un mois donné. 
