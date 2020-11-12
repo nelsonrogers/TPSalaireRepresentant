@@ -15,12 +15,11 @@ public class Representant {
         private float salaireMensuel;
         HashMap <Integer, Float> CA = new HashMap<>();
 
-	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur, String adresse) {
+	public Representant(int numero, String nom, String prenom, ZoneGeographique secteur) {
 		this.numero = numero;
 		this.nom = nom;
 		this.prenom = prenom;
                 this.secteur = secteur;
-                this.adresse = adresse;
 	}
 
 	public int getNumero() {

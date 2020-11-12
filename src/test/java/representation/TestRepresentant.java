@@ -22,7 +22,7 @@ public class TestRepresentant {
 		occitanie = new ZoneGeographique(1, "Occitanie");
 		occitanie.setIndemniteRepas(INDEMNITE_OCCITANIE);
 
-		r = new Representant(36, "Bastide", "Rémi", occitanie, "8 Rue Fuzies Castres");	
+		r = new Representant(36, "Bastide", "Rémi", occitanie);	
 		r.setSalaireFixe(FIXE_BASTIDE);				
 	}
 	
@@ -235,7 +235,7 @@ public class TestRepresentant {
         
         @Test 
         public void testToString() {
-                Representant n = new Representant(2, "Rogers", "Nelson", occitanie, "42 Rue Génissieu");
+                Representant n = new Representant(2, "Rogers", "Nelson", occitanie);
                 assertEquals("Representant{" + "numero=" + n.getNumero() + ", nom=" + n.getNom() + ", prenom=" + n.getPrenom() + '}',
                         n.toString()
                 );
